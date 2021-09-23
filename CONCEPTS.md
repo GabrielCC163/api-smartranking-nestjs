@@ -43,3 +43,10 @@ npm i class-validator class-transformer
 Then, into controllers:
 
 @UsePipes(ValidationPipe)
+
+### Exception filters
+@Catch()
+
+Catch http or server exceptions.
+
+Applied into main.ts and controllers.

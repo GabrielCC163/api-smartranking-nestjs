@@ -1,15 +1,14 @@
 import {
-  BadRequestException,
   Injectable,
   Logger,
   NotFoundException,
+  BadRequestException,
 } from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
+import { AtualizarJogadorDto } from './dtos/atualizar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
-
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AtualizarJogadorDto } from './dtos/atualizar-jogador.dto';
 
 @Injectable()
 export class JogadoresService {
@@ -19,8 +18,8 @@ export class JogadoresService {
 
   private readonly logger = new Logger(JogadoresService.name);
 
-  async criarJogador(criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
-    const { email } = criarJogadorDto;
+  async criarJogador(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
+    const { email } = criaJogadorDto;
 
     const jogadorEncontrado = await this.jogadorModel.findOne({ email }).exec();
 
@@ -30,7 +29,7 @@ export class JogadoresService {
       );
     }
 
-    const jogadorCriado = new this.jogadorModel(criarJogadorDto);
+    const jogadorCriado = new this.jogadorModel(criaJogadorDto);
     return await jogadorCriado.save();
   }
 
@@ -38,11 +37,10 @@ export class JogadoresService {
     _id: string,
     atualizarJogadorDto: AtualizarJogadorDto,
   ): Promise<void> {
-    // ? how to disregard others fields that are not in the DTO?
     const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
 
     if (!jogadorEncontrado) {
-      throw new NotFoundException(`Jogador com id ${_id} não encontrado`);
+      throw new NotFoundException(`Jogadodor com id ${_id} não econtrado`);
     }
 
     await this.jogadorModel
@@ -64,7 +62,7 @@ export class JogadoresService {
     return jogadorEncontrado;
   }
 
-  async deletarJogador(_id: string): Promise<any> {
+  async deletarJogador(_id): Promise<any> {
     const jogadorEncontrado = await this.jogadorModel.findOne({ _id }).exec();
 
     if (!jogadorEncontrado) {

@@ -2,4 +2,4 @@
 Udemy Course **Node.js Microservices: NestJS, RabbitMQ and Cloud Services**
 
 ### Stack
-- NestJS, MongoDB, RabbitMQ
+- NestJS, MongoDB (Mongoose), RabbitMQ
